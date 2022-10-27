@@ -6,29 +6,41 @@ class App extends Component {
   constructor (){
     super()
     this.state={
-     
-      name:'taoufik'
+      users:[],
+      searchfield:''
     }
-    console.log('constructor');
+   
   }
 
   async componentDidMount(){
-    console.log('componentDidMount');
-   
-    this.setState({name:'toto'},()=>{console.log(this.state.name)})
-    
+
+     const res= await fetch('https://jsonplaceholder.typicode.com/users')
+     const data=await res.json()
+     this.setState(()=> {return {users:data}})
   }
 
-
   render() {
-    console.log('render');
-  
+
+   const usersFiltred=this.state.users.filter((user)=>{
+    return user.name.toLowerCase().includes(this.state.searchfield)
+    })
     return (
         <div className="App">
-          <h1>{this.state.name}</h1>
+          <input 
+            onChange={(event)=>{
+              const searchfieldLowerCase=event.target.value.toLowerCase()
+               this.setState({searchfield:searchfieldLowerCase})
+            }}
+          />
+          { usersFiltred.map(user=>{
+            return(
+              <div key={user.id}>
+               <h1>{user.name}</h1> 
+              </div>
+            )
+          })}
         </div>
     )
   }
 }
-
 export default App;
