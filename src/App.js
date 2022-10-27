@@ -1,5 +1,6 @@
 import { Component } from "react";
 import "./App.css";
+import CardList from "./components/card-list/Card-list.component";
 
 
 class App extends Component {
@@ -39,13 +40,7 @@ class App extends Component {
             onChange={handlerChange}
           />
 
-          { usersFiltred.map(user=>{
-            return(
-              <div key={user.id}>
-               <h1>{user.name}</h1> 
-              </div>
-            )
-          })}
+           <CardList usersFiltred={usersFiltred} />
         </div>
     )
   }
