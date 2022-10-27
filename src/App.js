@@ -27,14 +27,16 @@ class App extends Component {
   }
 
   render() {
+    const {users,searchfield}=this.state
+    const {handlerChange}=this
 
-   const usersFiltred=this.state.users.filter((user)=>{
-    return user.name.toLowerCase().includes(this.state.searchfield)
+   const usersFiltred=users.filter((user)=>{
+    return user.name.toLowerCase().includes(searchfield)
     })
     return (
         <div className="App">
           <input 
-            onChange={this.handlerChange}
+            onChange={handlerChange}
           />
 
           { usersFiltred.map(user=>{
