@@ -19,6 +19,13 @@ class App extends Component {
      this.setState(()=> {return {users:data}})
   }
 
+  //if you don't use arrow function , an error is Handler
+   handlerChange=(event)=>{
+    console.log("ok");
+    const searchfieldLowerCase=event.target.value.toLowerCase()
+     this.setState({searchfield:searchfieldLowerCase})
+  }
+
   render() {
 
    const usersFiltred=this.state.users.filter((user)=>{
@@ -27,11 +34,9 @@ class App extends Component {
     return (
         <div className="App">
           <input 
-            onChange={(event)=>{
-              const searchfieldLowerCase=event.target.value.toLowerCase()
-               this.setState({searchfield:searchfieldLowerCase})
-            }}
+            onChange={this.handlerChange}
           />
+
           { usersFiltred.map(user=>{
             return(
               <div key={user.id}>
