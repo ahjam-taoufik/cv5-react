@@ -22,7 +22,10 @@ useEffect(() => {
    const handlerChange=(event)=>{
     const searchfieldLowerCase=event.target.value.toLowerCase()
     setSearchfield(searchfieldLowerCase)
-  }
+    
+   }
+   
+  
 
 
   const usersFiltred=users.filter((user)=>{
