@@ -1,44 +1,38 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import CardList from "./components/card-list/Card-list.component";
 import SearchBox from "./components/search-box/Search-box.component";
 
 
-class App extends Component {
-  constructor (){
-    super()
-    this.state={
-      users:[],
-      searchfield:''
+const App=()=> {
+  const [searchfield, setSearchfield] = useState('')
+  const [users, setUsers] = useState([])
+ 
+useEffect(() => {
+    const fetchUser=async()=>{
+      const res = await fetch('https://jsonplaceholder.typicode.com/users')
+      const data=await res.json()
+      setUsers(data)
     }
-   
-  }
 
-  async componentDidMount(){
+    fetchUser()
+}, [])
 
-     const res= await fetch('https://jsonplaceholder.typicode.com/users')
-     const data=await res.json()
-     this.setState(()=> {return {users:data}})
-  }
 
-  //if you don't use arrow function , an error is Handler
-   handlerChange=(event)=>{
-    console.log("ok");
+   const handlerChange=(event)=>{
     const searchfieldLowerCase=event.target.value.toLowerCase()
-     this.setState({searchfield:searchfieldLowerCase})
+    setSearchfield(searchfieldLowerCase)
   }
 
-  render() {
-    const {users,searchfield}=this.state
-    const {handlerChange}=this
 
-   const usersFiltred=users.filter((user)=>{
-    return user.name.toLowerCase().includes(searchfield)
-    })
+  const usersFiltred=users.filter((user)=>{
+   return user.name.toLowerCase().includes(searchfield)
+   })
+
+
     return (
         <div className="App">
           <SearchBox
-           className={this.props.className}
            placeholder='enter user'
            onhandlerChange={handlerChange} 
            />
@@ -46,5 +40,4 @@ class App extends Component {
         </div>
     )
   }
-}
 export default App;
