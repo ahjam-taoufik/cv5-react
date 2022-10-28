@@ -4,11 +4,10 @@ import CardList from "./components/card-list/Card-list.component";
 import SearchBox from "./components/search-box/Search-box.component";
 
 const App = () => {
-  console.log("render . . .");
   const [searchfield, setSearchfield] = useState("");
   const [users, setUsers] = useState([]);
   const [usersFiltred, setusersFiltred] = useState(users);
-
+  
   useEffect(() => {
     const fetchUser = async () => {
       const res = await fetch("https://jsonplaceholder.typicode.com/users");
